@@ -26,4 +26,50 @@ class Hangman
   def fill_indices(c, arr)
     @guess_word.each_with_index { |_el, ind| @guess_word[ind] = c if arr.include?(ind)}
   end
+
+  def try_guess(c)
+    if already_attempted?(c)
+      puts 'that has already been attempted'
+      false
+    else
+      @attempted_chars.push(c)
+      matches = get_matching_indices(c)
+      fill_indices(c, matches)
+      @remaining_incorrect_guesses -= 1 if matches.empty?
+      true
+    end
+  end
+
+  def ask_user_for_guess
+    puts 'Enter a char:'
+    choice = gets.chomp
+    result = try_guess(choice)
+  end
+
+  def win?
+    if @guess_word.join == @secret_word
+      puts 'WIN'
+      true
+    else
+      false
+    end
+  end
+
+  def lose?
+    if @remaining_incorrect_guesses == 0
+      puts 'LOSE'
+      true
+    else
+      false
+    end
+  end
+
+  def game_over?
+    if self.win? || self.lose?
+      puts @secret_word
+      true
+    else
+      false
+    end
+  end
 end
