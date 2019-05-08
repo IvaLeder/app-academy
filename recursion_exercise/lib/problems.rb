@@ -133,3 +133,15 @@ p sum_to(5)  # => returns 15
 p sum_to(1)  # => returns 1
 p sum_to(9)  # => returns 45
 p sum_to(-8)  # => returns nil
+
+def gamma_fnc(n)
+  return nil if n < 1
+  return 1 if n <= 2
+
+  gamma_fnc(n - 1) * (n - 1)
+end
+
+p gamma_fnc(0)  # => returns nil
+p gamma_fnc(1)  # => returns 1
+p gamma_fnc(4)  # => returns 6
+p gamma_fnc(8)  # => returns 5040
